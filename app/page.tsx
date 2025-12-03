@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
+import ASCIIText from './components/ASCIIText';
 
 type FilterType = "none" | "grayscale" | "sepia" | "vintage" | "cold" | "warm" | "noir" | "fade" | "dramatic";
 
@@ -273,27 +274,39 @@ export default function Home() {
 
       <section
         id="home"
-        className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-24 sm:pt-20 relative bg-gradient-to-b from-white via-violet-50 to-white"
+        className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-24 sm:pt-20 relative bg-gradient-to-b from-white via-violet-50 to-white overflow-hidden"
       >
-        <div className="text-center space-y-4 sm:space-y-6 animate-fade-in">
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter leading-none bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
-            PhotoboothUhuy
-          </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light tracking-wide">
-            Capture. Style. Share.
-          </p>
-          <button
-            onClick={() => {
-              scrollToSection("booth");
-              startCamera();
-            }}
-            className="mt-6 sm:mt-8 px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-violet-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105"
-          >
-            Start Photobooth
-          </button>
+        <div className="absolute inset-0 z-0">
+          <ASCIIText
+            text="Sobat Uhuyy"
+            enableWaves={true}
+            asciiFontSize={6}
+            textFontSize={180}
+            planeBaseHeight={10}
+          />
+        </div>
+        
+        <div className="relative z-10 text-center space-y-4 sm:space-y-6 animate-fade-in">
+          <div className="backdrop-blur-sm bg-white/30 rounded-3xl p-6 sm:p-8 shadow-xl border border-white/50">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter leading-none bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              PhotoboothUhuy
+            </h1>
+            <p className="text-base sm:text-lg lg:text-xl text-gray-700 font-light tracking-wide mb-6">
+              Capture. Style. Share.
+            </p>
+            <button
+              onClick={() => {
+                scrollToSection("booth");
+                startCamera();
+              }}
+              className="px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-violet-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105"
+            >
+              Start Photobooth
+            </button>
+          </div>
         </div>
 
-        <div className="absolute bottom-10 animate-bounce">
+        <div className="absolute bottom-10 animate-bounce z-10">
           <svg
             className="w-6 h-6 text-violet-400"
             fill="none"
@@ -411,7 +424,7 @@ export default function Home() {
                     onClick={() => setSelectedFilter(filter)}
                     className={`px-3 py-2 rounded-lg text-xs font-medium capitalize transition-all ${
                       selectedFilter === filter
-                        ? "bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md"
+                        ? "bg-gradient from-violet-600 to-purple-600 text-white shadow-md"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
@@ -430,7 +443,7 @@ export default function Home() {
                     onClick={() => setStripCount(count as 2 | 4 | 6 | 8)}
                     className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                       stripCount === count
-                        ? "bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md"
+                        ? "bg-gradient- from-violet-600 to-purple-600 text-white shadow-md"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
@@ -518,10 +531,10 @@ export default function Home() {
                       alt={`Captured ${idx + 1}`}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+                    <div className="absolute inset-0 bg-gradient from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
                       <button
                         onClick={() => downloadImage(img, `photobooth-${Date.now()}-${idx}.png`)}
-                        className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-violet-700 hover:to-purple-700 transition-colors flex items-center gap-1.5 sm:gap-2 shadow-lg"
+                        className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient  from-violet-600 to-purple-600 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-violet-700 hover:to-purple-700 transition-colors flex items-center gap-1.5 sm:gap-2 shadow-lg"
                       >
                         <svg
                           className="w-4 h-4 sm:w-5 sm:h-5"
