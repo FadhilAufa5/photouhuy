@@ -123,7 +123,7 @@ export default function Home() {
 
     ctx.font = "bold 36px Geist, Arial, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("PhotoboothUhuy", stripWidth / 2, 60);
+    ctx.fillText("PhotoboothMishell", stripWidth / 2, 60);
 
     const loadImage = (src: string): Promise<HTMLImageElement> => {
       return new Promise((resolve, reject) => {
