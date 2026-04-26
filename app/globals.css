@@ -61,3 +61,147 @@ input[type="range"]::-moz-range-track {
 video {
   background: #000;
 }
+
+/* Playful decorative elements */
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-6deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.95), rgba(147,51,234,0.95));
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 8px 18px rgba(99,102,241,0.18);
+  transform-origin: center;
+  animation: float-up 3s ease-in-out infinite;
+  z-index: 30;
+}
+
+.sticker.small {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(90deg,#f97316,#f43f5e);
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(244,63,94,0.14);
+}
+
+.float-emoji {
+  display: inline-block;
+  font-size: 18px;
+  animation: float-up 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker, .float-emoji {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive adjustments for decorative elements */
+@media (max-width: 640px) {
+  .sticker {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 6px 12px rgba(99,102,241,0.12);
+  }
+
+  .sticker.small {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .badge {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sticker {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    font-size: 24px;
+  }
+
+  .sticker.small {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .badge {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Global button styles and hover effects */
+button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(124,58,237,0.10), rgba(147,51,234,0.06));
+  color: var(--foreground);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1),
+              box-shadow 180ms cubic-bezier(.2,.9,.2,1),
+              background 180ms ease,
+              color 180ms ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(16,24,40,0.08), 0 4px 10px rgba(124,58,237,0.12);
+  background: linear-gradient(135deg, var(--violet), var(--purple));
+  color: #fff;
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 6px 16px rgba(16,24,40,0.06);
+}
+
+button:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid rgba(124,58,237,0.20);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  .btn {
+    transition: none !important;
+    transform: none !important;
+  }
+}

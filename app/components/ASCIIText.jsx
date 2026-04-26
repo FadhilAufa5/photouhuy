@@ -396,15 +396,24 @@ export default function ASCIIText({
     if (!containerRef.current) return;
 
     const { width, height } = containerRef.current.getBoundingClientRect();
+    
+    const isMobile = width < 768;
+    const responsiveAsciiFontSize = isMobile ? Math.max(4, asciiFontSize * 0.5) : asciiFontSize;
+    const responsiveTextFontSize = isMobile ? Math.max(80, textFontSize * 0.4) : textFontSize;
+    const responsivePlaneHeight = isMobile ? planeBaseHeight * 0.6 : planeBaseHeight;
 
     if (width === 0 || height === 0) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting && entry.boundingClientRect.width > 0 && entry.boundingClientRect.height > 0) {
             const { width: w, height: h } = entry.boundingClientRect;
+            const isMobileObs = w < 768;
+            const responsiveAsciiFontSizeObs = isMobileObs ? Math.max(4, asciiFontSize * 0.5) : asciiFontSize;
+            const responsiveTextFontSizeObs = isMobileObs ? Math.max(80, textFontSize * 0.4) : textFontSize;
+            const responsivePlaneHeightObs = isMobileObs ? planeBaseHeight * 0.6 : planeBaseHeight;
 
             asciiRef.current = new CanvAscii(
-              { text, asciiFontSize, textFontSize, textColor, planeBaseHeight, enableWaves },
+              { text, asciiFontSize: responsiveAsciiFontSizeObs, textFontSize: responsiveTextFontSizeObs, textColor, planeBaseHeight: responsivePlaneHeightObs, enableWaves },
               containerRef.current,
               w,
               h
@@ -428,7 +437,7 @@ export default function ASCIIText({
     }
 
     asciiRef.current = new CanvAscii(
-      { text, asciiFontSize, textFontSize, textColor, planeBaseHeight, enableWaves },
+      { text, asciiFontSize: responsiveAsciiFontSize, textFontSize: responsiveTextFontSize, textColor, planeBaseHeight: responsivePlaneHeight, enableWaves },
       containerRef.current,
       width,
       height
@@ -439,7 +448,25 @@ export default function ASCIIText({
       if (!entries[0] || !asciiRef.current) return;
       const { width: w, height: h } = entries[0].contentRect;
       if (w > 0 && h > 0) {
-        asciiRef.current.setSize(w, h);
+        const isMobileResize = w < 768;
+        const newAsciiFontSize = isMobileResize ? Math.max(4, asciiFontSize * 0.5) : asciiFontSize;
+        const newTextFontSize = isMobileResize ? Math.max(80, textFontSize * 0.4) : textFontSize;
+        const newPlaneHeight = isMobileResize ? planeBaseHeight * 0.6 : planeBaseHeight;
+        
+        if (asciiRef.current.asciiFontSize !== newAsciiFontSize || 
+            asciiRef.current.textFontSize !== newTextFontSize ||
+            asciiRef.current.planeBaseHeight !== newPlaneHeight) {
+          asciiRef.current.dispose();
+          asciiRef.current = new CanvAscii(
+            { text, asciiFontSize: newAsciiFontSize, textFontSize: newTextFontSize, textColor, planeBaseHeight: newPlaneHeight, enableWaves },
+            containerRef.current,
+            w,
+            h
+          );
+          asciiRef.current.load();
+        } else {
+          asciiRef.current.setSize(w, h);
+        }
       }
     });
     ro.observe(containerRef.current);

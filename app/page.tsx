@@ -276,6 +276,10 @@ export default function Home() {
         id="home"
         className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-24 sm:pt-20 relative bg-gradient-to-b from-white via-violet-50 to-white overflow-hidden"
       >
+        <div className="absolute top-6 right-6 z-20 flex flex-col items-end gap-2">
+          <div className="sticker">📸</div>
+          <div className="sticker small">🎉</div>
+        </div>
         <div className="absolute inset-0 z-0">
           <ASCIIText
             text="Sobat Uhuyy"
@@ -289,10 +293,10 @@ export default function Home() {
         <div className="relative z-10 text-center space-y-4 sm:space-y-6 animate-fade-in">
           <div className="backdrop-blur-sm bg-white/30 rounded-3xl p-6 sm:p-8 shadow-xl border border-white/50">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter leading-none bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent mb-4">
-              PhotoboothUhuy
+              PhotoboothMishel
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-gray-700 font-light tracking-wide mb-6">
-              Capture. Style. Share.
+              Jepret. Edit. Pamer.
             </p>
             <button
               onClick={() => {
@@ -301,7 +305,7 @@ export default function Home() {
               }}
               className="px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full text-white text-sm sm:text-base font-medium hover:from-violet-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105"
             >
-              Start Photobooth
+              Gas Foto Sekarang!
             </button>
           </div>
         </div>
@@ -328,9 +332,16 @@ export default function Home() {
         className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-20 relative bg-gray-50"
       >
         <div className="w-full max-w-5xl space-y-6 sm:space-y-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">Photo Booth</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">Studio Foto</h2>
+          <div className="flex justify-center -mt-4 mb-6">
+            <span className="badge">Smile 😊</span>
+          </div>
+          <p className="text-center text-gray-600 max-w-2xl mx-auto">
+            Ambil foto instan, tambahkan filter favorit, dan unduh hasilnya. Cocok untuk kenangan cepat atau acara seru bersama teman.
+          </p>
 
           <div className="relative rounded-3xl overflow-hidden border-2 border-gray-200 shadow-xl aspect-video bg-black">
+            <div className="sticker top-4 left-4">😊</div>
             <video
               ref={videoRef}
               autoPlay
@@ -353,7 +364,7 @@ export default function Home() {
             {isStripMode && (
               <div className="absolute top-4 left-4 bg-violet-600 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg z-10">
                 <p className="text-white text-sm font-medium">
-                  {autoCapture ? "Auto Mode" : "Manual Mode"}: {stripImages.length} / {stripCount}
+                  {autoCapture ? "Mode Otomatis" : "Mode Manual"}: {stripImages.length} / {stripCount}
                 </p>
               </div>
             )}
@@ -377,7 +388,7 @@ export default function Home() {
                 }}
                 className="px-4 py-2 text-sm bg-gray-200 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-300 transition-all"
               >
-                Cancel
+                Batal
               </button>
             )}
           </div>
@@ -517,8 +528,13 @@ export default function Home() {
       >
         <div className="w-full max-w-5xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">Gallery</h2>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="flex justify-center mb-4">
+            <span className="badge">Best Shots ✨</span>
+          </div>
+          <p className="text-center text-gray-600 mb-6 max-w-2xl mx-auto">
+            Di sini tersimpan hasil jepretanmu. Klik gambar untuk melihat lebih besar atau unduh hasilnya ke perangkatmu.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             {capturedImages.length > 0
               ? capturedImages.map((img, idx) => (
                   <div
@@ -532,26 +548,58 @@ export default function Home() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
-                      <button
-                        onClick={() => downloadImage(img, `photobooth-${Date.now()}-${idx}.png`)}
-                        className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient  from-violet-600 to-purple-600 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-violet-700 hover:to-purple-700 transition-colors flex items-center gap-1.5 sm:gap-2 shadow-lg"
-                      >
-                        <svg
-                          className="w-4 h-4 sm:w-5 sm:h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            setPreviewImage(img);
+                            setShowPreview(true);
+                          }}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 text-white rounded-lg text-xs sm:text-sm font-medium hover:bg-white/20 transition-colors flex items-center gap-1.5 sm:gap-2 shadow"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                          />
-                        </svg>
-                        <span className="hidden sm:inline">Download</span>
-                        <span className="sm:hidden">Save</span>
-                      </button>
+                          <svg
+                            className="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                          <span className="hidden sm:inline">Lihat</span>
+                          <span className="sm:hidden">Buka</span>
+                        </button>
+
+                        <button
+                          onClick={() => downloadImage(img, `photobooth-${Date.now()}-${idx}.png`)}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient from-violet-600 to-purple-600 text-white rounded-lg text-xs sm:text-sm font-medium hover:from-violet-700 hover:to-purple-700 transition-colors flex items-center gap-1.5 sm:gap-2 shadow-lg"
+                        >
+                          <svg
+                            className="w-4 h-4 sm:w-5 sm:h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                            />
+                          </svg>
+                          <span className="hidden sm:inline">Download</span>
+                          <span className="sm:hidden">Save</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))
@@ -597,7 +645,7 @@ export default function Home() {
           onClick={() => setShowPreview(false)}
         >
           <div 
-            className="relative max-w-sm sm:max-w-md w-full bg-white rounded-2xl p-4 sm:p-6 animate-fade-in shadow-2xl"
+            className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full bg-white rounded-2xl p-4 sm:p-6 animate-fade-in shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -621,12 +669,12 @@ export default function Home() {
 
             <h3 className="text-lg sm:text-xl font-bold text-center mb-3 sm:mb-4 text-gray-900">Preview</h3>
 
-            <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 mb-4">
+            <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 mb-4 flex items-center justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewImage}
                 alt="Preview"
-                className="w-full h-auto"
+                className="w-full h-auto max-h-[60vh] object-contain"
               />
             </div>
 
