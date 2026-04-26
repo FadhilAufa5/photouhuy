@@ -176,7 +176,7 @@ export default function Home() {
         month: "2-digit", 
         year: "numeric" 
       });
-      ctx.fillText(`${date} © PhotoboothUhuy`, stripWidth / 2, totalHeight - 35);
+      ctx.fillText(`${date} © PhotoboothMishell`, stripWidth / 2, totalHeight - 35);
 
       const stripData = canvas.toDataURL("image/png");
       setCapturedImages((prev) => [stripData, ...prev].slice(0, 9));
